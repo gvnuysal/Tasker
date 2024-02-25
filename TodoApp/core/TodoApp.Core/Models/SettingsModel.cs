@@ -1,12 +1,14 @@
-﻿using TodoApp.Core.Enums;
+﻿using System.Text.Json.Serialization;
+using TodoApp.Core.Enums;
 using TodoApp.Core.Models.Common;
 
 namespace TodoApp.Core.Models
 {
     public class SettingsModel:BaseModel
     {
-        public int Id { get; set; }
+        [JsonPropertyName("userName")]
         public string UserName { get; set; }
-        public AppTheme Theme { get; set; }
+        [JsonPropertyName("theme")]
+        public TaskTheme Theme { get; set; }
     }
 }

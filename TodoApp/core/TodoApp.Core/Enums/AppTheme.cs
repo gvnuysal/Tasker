@@ -1,6 +1,6 @@
 ﻿namespace TodoApp.Core.Enums
 {
-    public enum AppTheme
+    public enum TaskTheme
     {
         Ligth,
         Dark

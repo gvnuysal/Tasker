@@ -3,13 +3,46 @@
     x:Class="TodoApp.Mobil.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TodoApp.Mobil"
-    Shell.FlyoutBehavior="Disabled"
-    Title="TodoApp.Mobil">
+    xmlns:local="clr-namespace:TodoApp.Mobil.Views"
+    Shell.FlyoutBehavior="Flyout"
+    Title="TodoApp.Mobil"
+    FlyoutBackgroundColor="{AppThemeBinding Dark=Black,
+                                            Light=White}"
+    Shell.BackgroundColor="{AppThemeBinding Dark=Black,
+                                            Light=White}"
+    Shell.ForegroundColor="{AppThemeBinding Dark=White,
+                                            Light=Black}"
+    Shell.NavBarIsVisible="True"
+    Shell.TitleColor="{AppThemeBinding Dark=White,
+                                       Light=Black}">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeader>
+        <Image Source="icontasker.png"></Image>
+    </Shell.FlyoutHeader>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Home Page" 
+                      ContentTemplate="{DataTemplate local:HomePage}" 
+                      Icon="home.png" 
+                      Route="HomePage"></ShellContent>
 
+        <ShellContent Title="Created Task" 
+                      ContentTemplate="{DataTemplate local:AddTaskPage}" 
+                      Icon="writing.png" 
+                      Route="AddTaskPage"></ShellContent>
+
+        <ShellContent Title="List Task" 
+                      ContentTemplate="{DataTemplate local:ListTaskPage}" 
+                      Icon="todolist.png" 
+                      Route="ListTaskPage"></ShellContent>
+
+        <ShellContent Title="Favaourite Task" 
+                      ContentTemplate="{DataTemplate local:FavouriteTaskPage}" 
+                      Icon="favorite.png" 
+                      Route="FavouriteTaskPage"></ShellContent>
+        <ShellContent Title="Settings" 
+               ContentTemplate="{DataTemplate local:SettingsPage}" 
+               Icon="setting.png" 
+               Route="SettingsPage"></ShellContent>
+
+    </FlyoutItem>
 </Shell>

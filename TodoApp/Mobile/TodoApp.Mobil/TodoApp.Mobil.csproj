@@ -47,7 +47,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -57,6 +56,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\before.png" />
+	  <None Remove="Resources\Images\favorite.png" />
+	  <None Remove="Resources\Images\favorite_false.png" />
+	  <None Remove="Resources\Images\favorite_true.png" />
+	  <None Remove="Resources\Images\home.png" />
+	  <None Remove="Resources\Images\icontasker.png" />
+	  <None Remove="Resources\Images\menu.png" />
+	  <None Remove="Resources\Images\menudark.png" />
+	  <None Remove="Resources\Images\next.png" />
+	  <None Remove="Resources\Images\recyclebin.png" />
+	  <None Remove="Resources\Images\remove.png" />
+	  <None Remove="Resources\Images\restore.png" />
+	  <None Remove="Resources\Images\setting.png" />
+	  <None Remove="Resources\Images\status_backlog.png" />
+	  <None Remove="Resources\Images\status_done.png" />
+	  <None Remove="Resources\Images\status_inprogress.png" />
+	  <None Remove="Resources\Images\status_todo.png" />
+	  <None Remove="Resources\Images\todolist.png" />
+	  <None Remove="Resources\Images\writing.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="FmgLib.HttpClientHelper" Version="1.1.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -64,6 +88,33 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\core\TodoApp.Core\TodoApp.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AddTaskPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DeletedTasksPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\DetailTaskPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\FavouriteTaskPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ListTaskPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ListTaskWithStatusPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
