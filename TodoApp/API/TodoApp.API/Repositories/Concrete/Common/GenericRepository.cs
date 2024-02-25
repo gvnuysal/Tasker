@@ -37,6 +37,7 @@ namespace TodoApp.API.Repositories.Concrete.Common
             }
             catch (Exception ex)
             {
+                var message = ex.Message;
                 return false;
             }
         }
@@ -52,6 +53,7 @@ namespace TodoApp.API.Repositories.Concrete.Common
             }
             catch (Exception ex)
             {
+                var message=ex.Message;
                 return false;
             }
         }
@@ -70,14 +72,22 @@ namespace TodoApp.API.Repositories.Concrete.Common
                 return false;
             }
         }
-
-        public int Save() => _dbContext.SaveChanges();
-
+         
         public async Task<int> SaveAsync() => await _dbContext.SaveChangesAsync();
 
-        public Task<bool> UpdateAsync(TSource item)
+        public async Task<bool> UpdateAsync(TSource item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EntityEntry<TSource> entityEntry = Table.Update(item);
+                await SaveAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                return false;
+            }
         }
     }
 }
