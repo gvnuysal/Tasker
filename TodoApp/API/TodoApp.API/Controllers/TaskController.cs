@@ -8,7 +8,7 @@ namespace TodoApp.API.Controllers
     [ApiController]
     public class TaskController : Controller
     {
-       private readonly ITaskModelRepository _taskModelRepository;
+        private readonly ITaskModelRepository _taskModelRepository;
 
         public TaskController(ITaskModelRepository taskModelRepository)
         {
@@ -18,7 +18,7 @@ namespace TodoApp.API.Controllers
         [Route("get-all")]
         public async Task<IActionResult> GetAllTaskAsync()
         {
-            var result=await _taskModelRepository.GetAllAsync();
+            var result = await _taskModelRepository.GetAllAsync();
 
             return Ok(result);
         }
@@ -26,7 +26,7 @@ namespace TodoApp.API.Controllers
         [Route("get-all/{status}")]
         public async Task<IActionResult> GetAllTaskAsync(int status)
         {
-            var result = await _taskModelRepository.GetAllAsync(x=>(int)x.Status==status);
+            var result = await _taskModelRepository.GetAllAsync(x => (int)x.Status == status);
 
             return Ok(result);
         }
@@ -35,7 +35,7 @@ namespace TodoApp.API.Controllers
         public async Task<IActionResult> GetAllTaskAsync(string search)
         {
             search = search.ToLower();
-            var result = await _taskModelRepository.GetAllAsync(x =>x.Title.Contains(search)||
+            var result = await _taskModelRepository.GetAllAsync(x => x.Title.Contains(search) ||
                                                                     x.Content.Contains(search));
 
             return Ok(result);
@@ -44,13 +44,13 @@ namespace TodoApp.API.Controllers
         [Route("get-all-today")]
         public async Task<IActionResult> GetAllTodayTaskAsync()
         {
-            var result = await _taskModelRepository.GetAllAsync(x =>x.TaskDate.Date==DateTime.Now.Date);
+            var result = await _taskModelRepository.GetAllAsync(x => x.TaskDate.Date == DateTime.Now.Date);
 
             return Ok(result);
         }
         [HttpGet]
-        [Route("get-all-today/{date}")]
-        public async Task<IActionResult> GetAllTodayTaskAsync(string date)
+        [Route("get-all-today")]
+        public async Task<IActionResult> GetAllTodayTaskAsync([FromQuery] string date)
         {
             if(DateTime.TryParse(date,out DateTime dateTime))
             {

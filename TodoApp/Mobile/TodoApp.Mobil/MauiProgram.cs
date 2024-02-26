@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using TodoApp.Mobil.ViewModel;
 using TodoApp.Mobil.Views;
 
 namespace TodoApp.Mobil
@@ -25,6 +26,16 @@ namespace TodoApp.Mobil
             builder.Services.AddTransient<ListTaskWithStatusPage>();
             builder.Services.AddTransient<SettingsPage>();
             builder.Services.AddTransient<FavouriteTaskPage>();
+
+            builder.Services.AddTransient<HomeViewModel>();
+            builder.Services.AddTransient<AddTaskViewModel>();
+            builder.Services.AddTransient<DeletedViewModel>();
+            builder.Services.AddTransient<DetailTaskViewModel>();
+            builder.Services.AddTransient<FavouriteViewModel>();
+            builder.Services.AddTransient<ListTaskViewModel>();
+            builder.Services.AddTransient<ListTaskWithStatusViewModel>();
+            builder.Services.AddTransient<SettingsViewModel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
