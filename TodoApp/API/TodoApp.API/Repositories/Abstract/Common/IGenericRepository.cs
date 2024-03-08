@@ -7,6 +7,7 @@ namespace TodoApp.API.Repositories.Abstract.Common
     {
         DbSet<TSource> Table { get; }
         Task<int> SaveAsync(); 
+        int Save(); 
         Task<List<TSource>?> GetAllAsync();
         Task<List<TSource>?> GetAllAsync(Expression<Func<TSource,bool>> filter);
         Task<TSource?> GetSingleAsync(Expression<Func<TSource, bool>> filter);

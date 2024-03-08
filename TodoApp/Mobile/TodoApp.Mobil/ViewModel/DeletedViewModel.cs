@@ -4,4 +4,8 @@ namespace TodoApp.Mobil.ViewModel;
 
 public partial class DeletedViewModel:BaseViewModel
 {
+    public DeletedViewModel()
+    {
+        
+    }
 }

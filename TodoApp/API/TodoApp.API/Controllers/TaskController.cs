@@ -23,11 +23,22 @@ namespace TodoApp.API.Controllers
             return Ok(result);
         }
         [HttpGet]
+        [Route("get-all-this-month-task-count")]
+        public async Task<IActionResult> GetAllThisMonthCount()
+        {
+            var date= DateTime.Now;
+            var dateMin = new DateTime(date.Year, date.Month, 1);
+            var dateMax=new DateTime(date.Year, date.Month+1, 1).AddDays(-1);
+            var result = await _taskModelRepository.GetCountAsync(x=>x.TaskDate>=dateMin&&x.TaskDate<=dateMax);
+
+            return Ok(result);
+        }
+        [HttpGet]
         [Route("get-all/{status}")]
         public async Task<IActionResult> GetAllTaskAsync(int status)
         {
             var result = await _taskModelRepository.GetAllAsync(x => (int)x.Status == status);
-
+            //sad
             return Ok(result);
         }
         [HttpGet]
@@ -49,7 +60,7 @@ namespace TodoApp.API.Controllers
             return Ok(result);
         }
         [HttpGet]
-        [Route("get-all-today")]
+        [Route("get-all-today-with-date")]
         public async Task<IActionResult> GetAllTodayTaskAsync([FromQuery] string date)
         {
             if(DateTime.TryParse(date,out DateTime dateTime))

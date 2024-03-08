@@ -48,7 +48,7 @@ namespace TodoApp.API.Repositories.Concrete.Common
             {
                 var model = await Table.FirstOrDefaultAsync(x => x.Id == id);
                 Table.Remove(model);
-                await SaveAsync();
+                Save();
                 return true;
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace TodoApp.API.Repositories.Concrete.Common
             {
                 var model = await Table.AsNoTracking().Where(x => ids.Contains(x.Id)).ToListAsync();
                 Table.RemoveRange(model);
-                await SaveAsync();
+                Save();
                 return true;
             }
             catch (Exception ex)
@@ -74,6 +74,7 @@ namespace TodoApp.API.Repositories.Concrete.Common
         }
          
         public async Task<int> SaveAsync() => await _dbContext.SaveChangesAsync();
+        public int Save()=>_dbContext.SaveChanges();
 
         public async Task<bool> UpdateAsync(TSource item)
         {

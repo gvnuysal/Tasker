@@ -8,21 +8,72 @@
     <Grid RowDefinitions=".07*,.2*,.12*,.21*,.1*,.3*">
         <Label Grid.Row="0" 
                FontAttributes="Italic" 
-               FontSize="17"
+               FontSize="22"
                Text="{Binding UserText}"></Label>
 
         <Label Grid.Row="1"
             FontAttributes="Italic" 
             FontSize="32"
-            Text="You don't have tasks for this month"></Label>
+            Text="{Binding ThisMonthTaskCount}"></Label>
         <Frame Grid.Row="2" 
                Margin="25,15"
                BackgroundColor="LightGray">
-            
-            <SearchBar  Placeholder="Search a Task..." 
-                        Margin="-20"></SearchBar>
+
+            <SearchBar x:Name="searchBar"
+                       Placeholder="Search a Task..." 
+                       Margin="-20"
+                       SearchCommandParameter="{Binding Source={x:Reference searchBar},Path=Text}"
+                       SearchCommand="{Binding SearchCommand}" ></SearchBar>
 
         </Frame>
+        <HorizontalStackLayout Grid.Row="3"
+                               Spacing="10"
+                               >
+            <Frame Padding="-10,30"
+                   BackgroundColor="LightGray"
+                   CornerRadius="50"
+                   HeightRequest="150"
+                   WidthRequest="90">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="0"></TapGestureRecognizer>
+                </Frame.GestureRecognizers>
+                <VerticalStackLayout Spacing="10">
+                    <Image Source="status_backlog.png"
+                           HeightRequest="60"
+                           WidthRequest="60"
+                           HorizontalOptions="Center"></Image>
+                    <Label FontAttributes="Bold" 
+                           FontSize="14"
+                           Text="Back Log"></Label>
+                </VerticalStackLayout>
+
+
+            </Frame>
+
+            <Frame Padding="-10,30"
+        BackgroundColor="LightGray"
+        CornerRadius="50"
+        HeightRequest="150"
+        WidthRequest="90">
+
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="1"></TapGestureRecognizer>
+                </Frame.GestureRecognizers>
+                <VerticalStackLayout Spacing="10">
+                    <Image Source="status_inprogress.png"
+                HeightRequest="60"
+                WidthRequest="60"
+                HorizontalOptions="Center"></Image>
+                    <Label FontAttributes="Bold" 
+                FontSize="14"
+                Text="InProgress"></Label>
+                </VerticalStackLayout>
+
+
+            </Frame>
+
+        </HorizontalStackLayout>
     </Grid>
-    
+
 </ContentPage>
