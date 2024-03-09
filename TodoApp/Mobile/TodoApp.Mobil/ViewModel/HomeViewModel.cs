@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using FmgLib.HttpClientHelper;
 using TodoApp.Core.Models;
 using TodoApp.Mobil.ViewModel.Common;
+using TodoApp.Mobil.Views;
 
 namespace TodoApp.Mobil.ViewModel;
 
@@ -28,7 +29,25 @@ public partial class HomeViewModel : BaseViewModel
     public async Task GotoStatusPage(string status)
     {
         ListTaskWithStatusViewModel.StatusValue=int.Parse(status);
-        await Shell.Current.GoToAsync(nameof(ListTaskWithStatusViewModel));
+        await Shell.Current.GoToAsync(nameof(ListTaskWithStatusPage));
+    }
+
+    [RelayCommand]
+    public async Task GotoListTaskPage()
+    { 
+        await Shell.Current.GoToAsync(nameof(ListTaskPage));
+    }
+    [RelayCommand]
+    public async Task GotoAddTaskPage()
+    {
+        await Shell.Current.GoToAsync(nameof(AddTaskPage));
+    }
+
+    [RelayCommand]
+    public async Task GotoDetailTaskPage(int id)
+    {
+        DetailTaskViewModel.Id= id;
+        await Shell.Current.GoToAsync(nameof(DetailTaskPage));
     }
 
     [RelayCommand]

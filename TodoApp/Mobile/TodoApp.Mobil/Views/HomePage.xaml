@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TodoApp.Mobil.Views.HomePage"
+             xmlns:viewmodel="clr-namespace:TodoApp.Mobil.ViewModel"
              Title="MyTasker">
 
 
-    <Grid RowDefinitions=".07*,.2*,.12*,.21*,.1*,.3*">
+    <Grid RowDefinitions=".07*,.15*,.14*,.24*,.11*,.3*">
         <Label Grid.Row="0" 
                FontAttributes="Italic" 
                FontSize="22"
@@ -26,54 +27,169 @@
                        SearchCommand="{Binding SearchCommand}" ></SearchBar>
 
         </Frame>
+        
         <HorizontalStackLayout Grid.Row="3"
                                Spacing="10"
+                               Margin="5"
                                >
-            <Frame Padding="-10,30"
-                   BackgroundColor="LightGray"
-                   CornerRadius="50"
-                   HeightRequest="150"
-                   WidthRequest="90">
-
+            <Frame
+                Padding="-10,30"
+                BackgroundColor="{AppThemeBinding Light=LightGray,
+                                                  Dark=DarkGray}"
+                CornerRadius="50"
+                HeightRequest="150"
+                WidthRequest="90">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="0"></TapGestureRecognizer>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="0" />
                 </Frame.GestureRecognizers>
                 <VerticalStackLayout Spacing="10">
-                    <Image Source="status_backlog.png"
-                           HeightRequest="60"
-                           WidthRequest="60"
-                           HorizontalOptions="Center"></Image>
-                    <Label FontAttributes="Bold" 
-                           FontSize="14"
-                           Text="Back Log"></Label>
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="status_backlog.png"
+                        WidthRequest="60" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Text="Backlog" />
                 </VerticalStackLayout>
-
-
             </Frame>
-
-            <Frame Padding="-10,30"
-        BackgroundColor="LightGray"
-        CornerRadius="50"
-        HeightRequest="150"
-        WidthRequest="90">
-
+            <Frame
+                Padding="-10,30"
+                BackgroundColor="{AppThemeBinding Light=LightGray,
+                                                  Dark=DarkGray}"
+                CornerRadius="50"
+                HeightRequest="150"
+                WidthRequest="90">
                 <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="1"></TapGestureRecognizer>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="1" />
                 </Frame.GestureRecognizers>
                 <VerticalStackLayout Spacing="10">
-                    <Image Source="status_inprogress.png"
-                HeightRequest="60"
-                WidthRequest="60"
-                HorizontalOptions="Center"></Image>
-                    <Label FontAttributes="Bold" 
-                FontSize="14"
-                Text="InProgress"></Label>
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="status_todo.png"
+                        WidthRequest="60" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Text="To-Do" />
                 </VerticalStackLayout>
-
-
+            </Frame>
+            <Frame
+                Padding="-10,30"
+                BackgroundColor="{AppThemeBinding Light=LightGray,
+                                                  Dark=DarkGray}"
+                CornerRadius="50"
+                HeightRequest="150"
+                WidthRequest="90">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="2" />
+                </Frame.GestureRecognizers>
+                <VerticalStackLayout Spacing="10">
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="status_inprogress.png"
+                        WidthRequest="60" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Text="In-Progress" />
+                </VerticalStackLayout>
+            </Frame>
+            <Frame
+                Padding="-10,30"
+                BackgroundColor="{AppThemeBinding Light=LightGray,
+                                                  Dark=DarkGray}"
+                CornerRadius="50"
+                HeightRequest="150"
+                WidthRequest="90">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoStatusPageCommand}" CommandParameter="3" />
+                </Frame.GestureRecognizers>
+                <VerticalStackLayout Spacing="10">
+                    <Image
+                        HeightRequest="60"
+                        HorizontalOptions="Center"
+                        Source="status_done.png"
+                        WidthRequest="60" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Text="Done" />
+                </VerticalStackLayout>
             </Frame>
 
         </HorizontalStackLayout>
+        <Grid Grid.Row="4" Padding="0,10" ColumnDefinitions=".7*,.3*">
+            <Label Grid.Column="0" FontAttributes="Bold" FontSize="24" HorizontalOptions="Start" Text="Today's Task" VerticalOptions="Center"></Label>
+            <Label Grid.Column="1" FontAttributes="Italic" FontSize="18"  Opacity=".5" Text="See All " HorizontalOptions="End">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotoListTaskPageCommand}"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <CollectionView Grid.Row="5" ItemsSource="{Binding Tasks}">
+            <CollectionView.EmptyView>
+                <Frame
+                    BackgroundColor="Orange"
+                    BorderColor="Orange"
+                    CornerRadius="40">
+                    <VerticalStackLayout
+                        Margin="0,-10,0,0"
+                        Spacing="10"
+                        VerticalOptions="Center">
+                        <Label
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="You don't have task for this day!" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="Click Here to Create One">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GotoAddTaskPageCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+                </Frame>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        BackgroundColor="{Binding Color}"
+                        BorderColor="{Binding Color}"
+                        CornerRadius="40"
+                        WidthRequest="250">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=GotoDetailTaskPageCommand, Source={RelativeSource AncestorType={x:Type viewmodel:HomeViewModel}}}" 
+                                                  CommandParameter="{Binding Id}" />
+                        </Frame.GestureRecognizers>
+                        <VerticalStackLayout
+                            Margin="0,-10,0,0"
+                            Spacing="5"
+                            VerticalOptions="Center">
+                            <Label FontAttributes="Bold" Text="{Binding Title}" />
+                            <Label Text="{Binding Content}" />
+                            <Label Text="{Binding TaskDate, StringFormat='{0:HH:mm}'}" />
+                            <Label Text="{Binding TaskDate, StringFormat='{0:dd MMMM dddd, yyyy}'}" />
+                            <Label Text="{Binding Status}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
     </Grid>
 
 </ContentPage>
